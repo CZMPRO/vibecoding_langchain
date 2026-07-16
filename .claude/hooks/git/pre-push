@@ -1,0 +1,22 @@
+#!/bin/sh
+# Git 原生 pre-push：推送前再次校验双通行证（防止本地旧提交直推）
+
+ROOT="$(git rev-parse --show-toplevel 2>/dev/null)"
+if [ -z "$ROOT" ]; then
+  ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
+fi
+
+export LANGCHAINRAG_ROOT="$ROOT"
+export NAILONG_ROOT="$ROOT"
+
+if command -v node >/dev/null 2>&1; then
+  node "$ROOT/.claude/hooks/check-pass-gate.js"
+  STATUS=$?
+  if [ $STATUS -ne 0 ]; then
+    exit $STATUS
+  fi
+  exit 0
+fi
+
+echo "[错误] 未找到 node，无法执行推送门禁校验。"
+exit 1

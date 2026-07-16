@@ -135,8 +135,17 @@ python -m pytest -v
 | 代理 | `quality-engineer` | 安全+注释并写 `quality-pass.json` |
 | 代理 | `gitcommit-agent` | 并行双检 → git-save → 清章 |
 | 钩子 | `.claude/hooks/*` | Claude Bash 提交前验双章、push 后清章 |
+| Git 钩子 | `.claude/hooks/git/` | 原生 `pre-commit` / `pre-push`（`core.hooksPath`） |
 
 通行证目录：`.claude/states/`（已 gitignore，**勿提交**）。
+
+#### 启用 Git 原生门禁（克隆后执行一次）
+
+```bash
+node .claude/hooks/install-git-hooks.js
+```
+
+会设置 `git config core.hooksPath .claude/hooks/git`。之后在终端直接 `git commit` / `git push` 也会校验双通行证（不仅 Claude 对话里）。
 
 ## 常见问题
 

@@ -12,7 +12,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node .claude/hooks/claude-pre-bash-commit-gate.js",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/claude-pre-bash-commit-gate.js\"",
             "timeout": 30
           }
         ]
@@ -24,7 +24,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node .claude/hooks/claude-post-bash-push-clear.js",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/claude-post-bash-push-clear.js\"",
             "timeout": 30
           }
         ]

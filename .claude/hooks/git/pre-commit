@@ -1,0 +1,20 @@
+#!/bin/sh
+# Git 原生 pre-commit：提交前校验双通行证
+# 通过 core.hooksPath=.claude/hooks/git 启用
+
+ROOT="$(git rev-parse --show-toplevel 2>/dev/null)"
+if [ -z "$ROOT" ]; then
+  ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
+fi
+
+export LANGCHAINRAG_ROOT="$ROOT"
+export NAILONG_ROOT="$ROOT"
+
+# Windows Git Bash 下优先用 node；找不到则报错
+if command -v node >/dev/null 2>&1; then
+  node "$ROOT/.claude/hooks/check-pass-gate.js"
+  exit $?
+fi
+
+echo "[错误] 未找到 node，无法执行提交门禁校验。"
+exit 1
