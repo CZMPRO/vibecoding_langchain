@@ -1,0 +1,44 @@
+# 环境与密钥
+.env
+.env.local
+*.pem
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# 数据与上传（本地运行产生）
+backend/data/app.db
+backend/data/uploads/*
+backend/data/chroma/*
+!backend/data/uploads/.gitkeep
+!backend/data/chroma/.gitkeep
+
+# Node / 前端
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# IDE / 系统
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# 日志
+*.log
+logs/
+
+# Claude 本地状态（通行证等）
+.claude/states/
