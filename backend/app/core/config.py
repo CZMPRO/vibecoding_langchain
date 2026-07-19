@@ -1,5 +1,6 @@
 """应用配置：从环境变量 / .env 读取，换模型不用改代码。"""
 
+import os
 from functools import lru_cache
 from pathlib import Path
 from typing import List
@@ -37,8 +38,8 @@ class Settings(BaseSettings):
     admin_username: str = "admin"
     admin_password: str = "123456"
 
-    # 路径
-    data_dir: str = "./data"
+    # 路径：Vercel Functions 仅允许写入 /tmp，本地仍使用 backend/data
+    data_dir: str = "/tmp/langchain-rag" if os.getenv("VERCEL") else "./data"
     cors_origins: str = "http://localhost:5173,http://127.0.0.1:5173"
 
     # RAG
